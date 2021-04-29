@@ -89,6 +89,11 @@ namespace shifr
 			this.secondKey = new string(secondKey.Distinct().ToArray()).Replace(" ", "");
 			string Pair = "";
 			string encrypt = "";
+			if(inputText.Length %2 != 0)
+            {
+				inputText += "~";
+
+			}
 			for (int i = 0; i < inputText.Length; i++)
 			{
 				Pair += inputText[i];
@@ -122,7 +127,8 @@ namespace shifr
 					Pair = "";
 				}
 			}
-			return decrypt.Replace("_", " ").Trim();
+			decrypt = decrypt.Replace("~", "");
+			return decrypt.Replace("_", " ").Trim(); 
 		}
 
 
@@ -200,6 +206,24 @@ namespace shifr
 		private void button1_Click(object sender, EventArgs e)
 		{
 			//Зашифровать
+			if(textBox1.Text.Length < 1)
+            {
+				MessageBox.Show("Введите входящий текст");
+				return;
+            }
+			if (textBox4.Text.Length < 1)
+			{
+				MessageBox.Show("Введите ключ №1");
+				return;
+			}
+			if (textBox3.Text.Length < 1)
+			{
+				MessageBox.Show("Введите ключ #2");
+				return;
+			}
+			this.firstKey  = textBox4.Text;
+			this.secondKey = textBox3.Text;
+			textBox2.Text = Encode(textBox1.Text);
 		}
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -210,7 +234,26 @@ namespace shifr
         private void button2_Click(object sender, EventArgs e)
         {
 			//Расшифровать
-        }
+			//Зашифровать
+			if (textBox1.Text.Length < 1)
+			{
+				MessageBox.Show("Введите входящий текст");
+				return;
+			}
+			if (textBox4.Text.Length < 1)
+			{
+				MessageBox.Show("Введите ключ №1");
+				return;
+			}
+			if (textBox3.Text.Length < 1)
+			{
+				MessageBox.Show("Введите ключ #2");
+				return;
+			}
+			this.firstKey = textBox4.Text;
+			this.secondKey = textBox3.Text;
+			textBox2.Text = Decode(textBox1.Text);
+		}
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
